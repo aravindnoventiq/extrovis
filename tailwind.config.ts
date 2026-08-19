@@ -1,0 +1,106 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  /* Live Extrovis CSS owns base resets / typography.
+     Disable Tailwind `.collapse` — it sets visibility:collapse and hides
+     the live-site hamburger which uses class name "collapse". */
+  corePlugins: {
+    preflight: false,
+  },
+  blocklist: ['collapse'],
+  theme: {
+    extend: {
+      colors: {
+        background: {
+          50: '#ffffff',
+          100: '#f5f5f5',
+          200: '#eeeeee',
+          300: '#dddddd',
+          400: '#cccccc',
+          500: '#ababab',
+          600: '#888888',
+          700: '#666666',
+          800: '#444444',
+          900: '#333333',
+          950: '#1a1a1a',
+        },
+        primary: {
+          50: '#fff0f1',
+          100: '#ffd6da',
+          200: '#ffadb5',
+          300: '#ff7a87',
+          400: '#ff3d52',
+          500: '#ff0018',
+          600: '#d30318',
+          700: '#a80014',
+          800: '#7a0010',
+          900: '#52000b',
+          950: '#2e0006',
+        },
+        secondary: {
+          50: '#efeffa',
+          100: '#dfdff2',
+          200: '#c0c0e6',
+          300: '#9090cc',
+          400: '#5050a8',
+          500: '#14146e',
+          600: '#12125f',
+          700: '#0e0e4a',
+          800: '#0a0a36',
+          900: '#070728',
+          950: '#04041a',
+        },
+        accent: {
+          50: '#f5f5fb',
+          100: '#dfdff2',
+          200: '#c8c8e8',
+          300: '#a8a8d8',
+          400: '#8080c0',
+          500: '#14146e',
+          600: '#12125f',
+          700: '#0e0e4a',
+          800: '#0a0a36',
+          900: '#070728',
+          950: '#04041a',
+        },
+        foreground: {
+          50: '#fafafa',
+          100: '#f5f5f5',
+          200: '#eeeeee',
+          300: '#dddddd',
+          400: '#ababab',
+          500: '#888888',
+          600: '#666666',
+          700: '#444444',
+          800: '#333333',
+          900: '#222222',
+          950: '#111111',
+        },
+      },
+      fontFamily: {
+        heading: ['Aquawax Pro', 'sans-serif'],
+        body: ['Aquawax Pro', 'sans-serif'],
+        sans: ['Aquawax Pro', 'sans-serif'],
+        display: ['Aquawax Pro', 'sans-serif'],
+      },
+      fontWeight: {
+        light: '300',
+        normal: '400',
+        medium: '400',
+        semibold: '600',
+        bold: '600',
+        extrabold: '600',
+      },
+      maxWidth: {
+        container: '1440px',
+      },
+      screens: {
+        xs: '480px',
+      },
+    },
+  },
+  plugins: [],
+}

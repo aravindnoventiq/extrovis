@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Build / Vite
+dist/
+out/
+server/dist/
+*.local
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+server/.env
+server/.env.*
+!server/.env.example
+
+# Logs & debug
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Uploads (CV files)
+server/uploads/cvs/*
+!server/uploads/cvs/.gitkeep
+
+# IDE / OS
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# TypeScript / tooling
+*.tsbuildinfo
+.auto-imports.d.ts
+auto-imports.d.ts
+
+# Prisma
+server/prisma/*.db
+server/prisma/*.db-journal
+
+# Coverage / cache
+coverage/
+.cache/
+.eslintcache

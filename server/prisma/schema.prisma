@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique @db.VarChar(191)
+  passwordHash String   @db.VarChar(255)
+  name         String   @db.VarChar(191)
+  createdAt    DateTime @default(now())
+}
+
+model PageContent {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique @db.VarChar(100)
+  data      Json
+  updatedAt DateTime @updatedAt
+}
+
+model LeadershipMember {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(191)
+  role      String   @db.VarChar(255)
+  shortDesc String   @db.Text
+  fullDesc  Json
+  image     String   @db.VarChar(500)
+  alt       String   @db.VarChar(255)
+  group     String   @db.VarChar(50)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Office {
+  id          Int      @id @default(autoincrement())
+  officeKey   String   @unique @db.VarChar(100)
+  name        String   @db.VarChar(191)
+  country     String   @db.VarChar(191)
+  mapImage    String?  @db.VarChar(500)
+  lineImage   String?  @db.VarChar(500)
+  address     Json
+  defaultOpen Boolean  @default(false)
+  sortOrder   Int      @default(0)
+}
+
+model Job {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  location    String   @db.VarChar(255)
+  department  String   @db.VarChar(255)
+  description String   @db.Text
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CareerBenefit {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  image     String   @db.VarChar(500)
+  cardClass String   @db.VarChar(100)
+  sortOrder Int      @default(0)
+}
+
+model ContactSubmission {
+  id        Int      @id @default(autoincrement())
+  source    String   @db.VarChar(50)
+  name      String   @db.VarChar(191)
+  email     String   @db.VarChar(191)
+  message   String?  @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model CareerApplication {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(191)
+  email     String   @db.VarChar(191)
+  cvPath    String   @db.VarChar(500)
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

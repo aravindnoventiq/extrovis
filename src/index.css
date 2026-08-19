@@ -1,0 +1,313 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Page loader — keep above everything (live CSS sets z-index:1000 which loses to nav-home) */
+.page-loader {
+  z-index: 100000 !important;
+  transition: 1s !important;
+}
+
+.page-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-loader .spinner {
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  animation: loading 3s linear 1s infinite;
+}
+
+.page-loader p {
+  color: #14146e;
+  opacity: 0;
+  margin: 0;
+  animation: loading-second 3s linear 1s infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes loading-second {
+  0% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.company-phone-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+/* Fade-in helper when IntersectionObserver marks done */
+.fade-in {
+  transform: translateY(100px);
+  transition: 0.6s ease;
+  opacity: 0;
+}
+
+.fade-in.fade-in-done {
+  transform: translate(0);
+  opacity: 1;
+}
+
+.fade-in.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.fade-in.delay-400 {
+  transition-delay: 0.4s;
+}
+
+.fade-in.delay-600 {
+  transition-delay: 0.6s;
+}
+
+/* Live who-we-are spacing utilities */
+.pt25 {
+  padding-top: 25px;
+}
+
+.pt50 {
+  padding-top: 50px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+  .page-loader .spinner {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .page-loader p {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Extrovis world map (Who We Are / Get in Touch) */
+#map {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+#map img.bg {
+  width: 100%;
+  z-index: 1;
+}
+
+#map .office img.office-map {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  transition: 0.4s ease;
+  pointer-events: none;
+}
+
+#map .office .line {
+  position: absolute;
+  z-index: 3;
+}
+
+#map .office .line .line-inner {
+  position: relative;
+}
+
+#map .office .line .line-inner .line-img {
+  width: 100%;
+  display: block;
+}
+
+#map .office .line .line-inner .line-text {
+  position: absolute;
+  cursor: pointer;
+}
+
+#map .office .line .line-inner .line-text p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+  color: #14146e;
+  white-space: nowrap;
+  transition: 0.4s ease;
+}
+
+#map .office .line .line-inner .line-text small {
+  font-size: 13px;
+  line-height: 14px;
+  color: #14146e;
+  display: block;
+  white-space: nowrap;
+}
+
+#map .office .line .line-inner .line-text .hided-text {
+  overflow: hidden;
+  height: 0;
+  transition: 0.4s ease;
+}
+
+#map .office .line .line-inner .line-text .hided-text .overflow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 6px;
+}
+
+#map .office .line .line-inner .line-text .hided-text small {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+#map .office.open img.office-map,
+#map .office:hover img.office-map {
+  opacity: 1;
+}
+
+#map .office.open .line .line-inner .line-text .hided-text,
+#map .office:hover .line .line-inner .line-text .hided-text {
+  height: auto;
+}
+
+#map .office.usa img.office-map {
+  width: 15.0729166667%;
+  left: 14.4677083333%;
+  top: 24.5515625%;
+}
+#map .office.usa .line {
+  width: 3.3854166667%;
+  left: 20.15625%;
+  top: 35.9375%;
+}
+#map .office.usa .line .line-inner .line-text {
+  top: calc(100% - 12px);
+  left: calc(100% + 5px);
+}
+
+#map .office.switzerland img.office-map {
+  width: 1.1666666667%;
+  left: 48.75%;
+  top: 26.546875%;
+}
+#map .office.switzerland .line {
+  width: 5.5729166667%;
+  left: 43.5416666667%;
+  top: 18.4375%;
+}
+#map .office.switzerland .line .line-inner .line-text {
+  top: -12px;
+  right: calc(100% + 5px);
+}
+
+#map .office.hungary-1 img.office-map {
+  width: 1.6666666667%;
+  left: 51.3020833333%;
+  top: 25.328125%;
+}
+#map .office.hungary-1 .line {
+  width: 3.28125%;
+  left: 52.2395833333%;
+  top: 26.484375%;
+}
+#map .office.hungary-1 .line .line-inner .line-text {
+  left: calc(100% + 5px);
+  top: calc(100% - 12px);
+}
+
+#map .office.hungary-2 img.office-map {
+  width: 1.6666666667%;
+  left: 51.3020833333%;
+  top: 25.328125%;
+}
+#map .office.hungary-2 .line {
+  width: 3.28125%;
+  left: 52.2395833333%;
+  top: 12.5%;
+}
+#map .office.hungary-2 .line .line-inner .line-text {
+  left: calc(100% + 5px);
+  top: calc(0% - 12px);
+}
+
+#map .office.italy img.office-map {
+  width: 2.9791666667%;
+  left: 48.8541666667%;
+  top: 27.1875%;
+}
+#map .office.italy .line {
+  width: 3.5416666667%;
+  left: 46.796875%;
+  top: 32.03125%;
+}
+#map .office.italy .line .line-inner .line-text {
+  right: calc(100% + 5px);
+  top: calc(100% - 12px);
+}
+
+#map .office.india-1 img.office-map {
+  width: 7.159375%;
+  left: 61.7708333333%;
+  top: 68.403125%;
+}
+#map .office.india-1 .line {
+  width: 3.5416666667%;
+  left: 63.0208333333%;
+  top: 55.9375%;
+}
+#map .office.india-1 .line .line-inner .line-text {
+  right: calc(100% + 5px);
+  top: calc(100% - 12px);
+}
+
+#map .office.india-2 img.office-map {
+  width: 7.159375%;
+  left: 61.7708333333%;
+  top: 68.403125%;
+}
+#map .office.india-2 .line {
+  width: 3.28125%;
+  left: 68.0729166667%;
+  top: 55.9375%;
+}
+#map .office.india-2 .line .line-inner .line-text {
+  left: calc(100% + 5px);
+  top: calc(100% - 12px);
+}
+
+@media (max-width: 991px) {
+  #map .office .line .line-inner .line-text p {
+    font-size: 11px;
+    line-height: 13px;
+  }
+  #map .office .line .line-inner .line-text small {
+    font-size: 10px;
+    line-height: 12px;
+  }
+}

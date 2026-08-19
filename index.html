@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extrovis - Dedicated to Better</title>
+    <meta name="description" content="Extrovis is an integrated pharmaceutical company with quality products at our core and an ethical approach to all that we set out to achieve." />
+    <meta name="robots" content="all" />
+    <link rel="canonical" href="https://www.extrovis.com/" />
+    <meta property="og:title" content="Extrovis - Dedicated to Better" />
+    <meta property="og:description" content="Advancing the Future of Specialty Medicine. We partner with the world's leading pharmaceutical companies." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.extrovis.com/" />
+    <!-- Critical loader CSS — matches https://www.extrovis.com/ before JS/CSS bundles -->
+    <style>
+      .page-loader {
+        z-index: 100000;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        visibility: visible;
+        transition: 1s;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .page-loader .spinner {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+        transition: 0.5s;
+        animation: loading 3s linear 1s infinite;
+      }
+      .page-loader p {
+        color: #14146e;
+        opacity: 0;
+        transition: 0.5s;
+        margin: 0;
+        animation: loading-second 3s linear 1s infinite;
+      }
+      .page-loader.loaded {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      @keyframes loading {
+        0% { transform: rotate(0); opacity: 1; }
+        to { transform: rotate(360deg); opacity: 1; }
+      }
+      @keyframes loading-second {
+        0% { opacity: 1; }
+        to { opacity: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-loader" id="page-loader" aria-busy="true" aria-live="polite">
+      <img src="/images/favicon.svg" alt="Extrovis" class="spinner" />
+      <p>Loading...</p>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
