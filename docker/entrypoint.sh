@@ -4,7 +4,7 @@ set -e
 cd /app/server
 
 export NODE_ENV="${NODE_ENV:-production}"
-export APP_PORT="${APP_PORT:-4000}"
+export APP_PORT="${APP_PORT:-3072}"
 export APP_HOST="${APP_HOST:-0.0.0.0}"
 
 echo "[entrypoint] NODE_ENV=$NODE_ENV APP_PORT=$APP_PORT"

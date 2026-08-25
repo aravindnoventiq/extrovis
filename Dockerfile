@@ -34,7 +34,7 @@ RUN chmod +x /entrypoint.sh \
 
 ENV NODE_ENV=production
 ENV APP_HOST=0.0.0.0
-ENV APP_PORT=4000
+ENV APP_PORT=3072
 
-EXPOSE 4000
+EXPOSE 3072
 ENTRYPOINT ["/entrypoint.sh"]
