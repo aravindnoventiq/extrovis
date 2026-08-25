@@ -36,23 +36,16 @@ npm run dev
 
 ## Production database
 
-`config/config.json` → `production` uses database **`extrovis`** (same name as development; point `host` / credentials at your prod MySQL).
+`config/config.json` is **gitignored**. On the server:
 
 ```bash
-# Create schema + seed production DB
-npm run db:push:production
-npm run seed:production
-
-# Run server against production DB
+cp config/config.example.json config/config.json
+# edit production username/password/host
+npm run db:push:production   # if schema not applied yet
+npm run seed:production      # optional
 npm run start:production
 ```
 
-Override host/user/password without editing JSON:
+Override without editing JSON: `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`.
 
-```bash
-set DB_HOST=your-mysql-host
-set DB_USER=extrovis
-set DB_PASSWORD=secret
-set DB_NAME=extrovis
-npm run db:push:production
-```
+See repo root `DEPLOY.md` if the site returns **502 Bad Gateway**.

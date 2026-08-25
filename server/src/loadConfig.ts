@@ -14,21 +14,66 @@ type DbConfig = {
 type ConfigFile = Record<string, DbConfig>;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const configPath = path.resolve(__dirname, '../config/config.json');
+const configDir = path.resolve(__dirname, '../config');
+const configPath = path.join(configDir, 'config.json');
+const examplePath = path.join(configDir, 'config.example.json');
+
+function parseDatabaseUrl(url: string): DbConfig {
+  const u = new URL(url);
+  return {
+    username: decodeURIComponent(u.username),
+    password: decodeURIComponent(u.password),
+    database: u.pathname.replace(/^\//, ''),
+    host: u.hostname,
+    port: Number(u.port || 3306),
+    dialect: 'mysql',
+  };
+}
 
 /**
  * Load MySQL settings from server/config/config.json (Refex-style).
- * NODE_ENV selects the block (development | uat | production | test).
- * Per-field overrides: DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME.
- * Always writes process.env.DATABASE_URL so Prisma follows config.json
- * (unless FORCE_DATABASE_URL=1 keeps an existing DATABASE_URL).
+ * Falls back to config.example.json, then DATABASE_URL / DB_* env vars
+ * so a missing config.json does not crash the process (avoids nginx 502).
  */
 export function applyDatabaseConfig(): DbConfig {
   const env = process.env.NODE_ENV || 'development';
-  const all = JSON.parse(fs.readFileSync(configPath, 'utf8')) as ConfigFile;
-  const base = all[env] || all.development;
+
+  if (process.env.FORCE_DATABASE_URL === '1' && process.env.DATABASE_URL) {
+    return parseDatabaseUrl(process.env.DATABASE_URL);
+  }
+
+  let base: DbConfig | undefined;
+
+  const pathToRead = fs.existsSync(configPath)
+    ? configPath
+    : fs.existsSync(examplePath)
+      ? examplePath
+      : null;
+
+  if (pathToRead) {
+    if (pathToRead === examplePath) {
+      console.warn(
+        `[db] ${configPath} missing — using config.example.json. Copy it to config.json for production.`,
+      );
+    }
+    const all = JSON.parse(fs.readFileSync(pathToRead, 'utf8')) as ConfigFile;
+    base = all[env] || all.development;
+  }
+
+  if (!base && process.env.DATABASE_URL) {
+    base = parseDatabaseUrl(process.env.DATABASE_URL);
+  }
+
   if (!base) {
-    throw new Error(`No database config for NODE_ENV=${env} in ${configPath}`);
+    base = {
+      username: process.env.DB_USER || 'root',
+      password: process.env.DB_PASSWORD || '',
+      database: process.env.DB_NAME || 'extrovis',
+      host: process.env.DB_HOST || '127.0.0.1',
+      port: Number(process.env.DB_PORT || 3306),
+      dialect: 'mysql',
+    };
+    console.warn('[db] No config.json found — using DB_* env defaults');
   }
 
   const username = process.env.DB_USER || base.username;
@@ -37,13 +82,10 @@ export function applyDatabaseConfig(): DbConfig {
   const host = process.env.DB_HOST || base.host;
   const port = Number(process.env.DB_PORT || base.port || 3306);
 
-  if (process.env.FORCE_DATABASE_URL === '1' && process.env.DATABASE_URL) {
-    return { username, password, database, host, port, dialect: 'mysql' };
-  }
-
   const encUser = encodeURIComponent(username);
   const encPass = encodeURIComponent(password);
   process.env.DATABASE_URL = `mysql://${encUser}:${encPass}@${host}:${port}/${database}`;
 
+  console.log(`[db] NODE_ENV=${env} → ${database}@${host}:${port}`);
   return { username, password, database, host, port, dialect: 'mysql' };
 }

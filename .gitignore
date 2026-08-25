@@ -57,5 +57,6 @@ coverage/
 .cache/
 .eslintcache
 
-# Server DB config (local credentials)
+# Server DB config (local credentials) — keep example tracked
 server/config/config.json
+!server/config/config.example.json
