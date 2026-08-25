@@ -34,4 +34,25 @@ npm run seed
 npm run dev
 ```
 
-5. After client build, `npm start` serves UI + API on `APP_PORT`.
+## Production database
+
+`config/config.json` → `production` uses database **`extrovis`** (same name as development; point `host` / credentials at your prod MySQL).
+
+```bash
+# Create schema + seed production DB
+npm run db:push:production
+npm run seed:production
+
+# Run server against production DB
+npm run start:production
+```
+
+Override host/user/password without editing JSON:
+
+```bash
+set DB_HOST=your-mysql-host
+set DB_USER=extrovis
+set DB_PASSWORD=secret
+set DB_NAME=extrovis
+npm run db:push:production
+```

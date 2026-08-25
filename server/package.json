@@ -7,10 +7,13 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "tsx src/index.ts",
+    "start:production": "tsx scripts/start-production.ts",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push",
+    "db:push": "tsx scripts/prisma-with-config.ts db push",
+    "db:push:production": "tsx scripts/prisma-with-config.ts --production db push",
     "db:migrate": "prisma migrate dev",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts",
+    "seed:production": "tsx scripts/seed-production.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.14.0",

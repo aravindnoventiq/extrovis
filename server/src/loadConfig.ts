@@ -18,7 +18,10 @@ const configPath = path.resolve(__dirname, '../config/config.json');
 
 /**
  * Load MySQL settings from server/config/config.json (Refex-style).
- * Env vars win: DATABASE_URL, or DB_HOST / DB_PORT / DB_USER / DB_PASSWORD / DB_NAME.
+ * NODE_ENV selects the block (development | uat | production | test).
+ * Per-field overrides: DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME.
+ * Always writes process.env.DATABASE_URL so Prisma follows config.json
+ * (unless FORCE_DATABASE_URL=1 keeps an existing DATABASE_URL).
  */
 export function applyDatabaseConfig(): DbConfig {
   const env = process.env.NODE_ENV || 'development';
@@ -34,11 +37,13 @@ export function applyDatabaseConfig(): DbConfig {
   const host = process.env.DB_HOST || base.host;
   const port = Number(process.env.DB_PORT || base.port || 3306);
 
-  if (!process.env.DATABASE_URL) {
-    const encUser = encodeURIComponent(username);
-    const encPass = encodeURIComponent(password);
-    process.env.DATABASE_URL = `mysql://${encUser}:${encPass}@${host}:${port}/${database}`;
+  if (process.env.FORCE_DATABASE_URL === '1' && process.env.DATABASE_URL) {
+    return { username, password, database, host, port, dialect: 'mysql' };
   }
+
+  const encUser = encodeURIComponent(username);
+  const encPass = encodeURIComponent(password);
+  process.env.DATABASE_URL = `mysql://${encUser}:${encPass}@${host}:${port}/${database}`;
 
   return { username, password, database, host, port, dialect: 'mysql' };
 }

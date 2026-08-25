@@ -18,18 +18,18 @@
   },
   "uat": {
     "username": "root",
-    "password": "rootpassword",
-    "database": "extrovis",
-    "host": "mysql",
+    "password": "password",
+    "database": "extrovis_uat",
+    "host": "127.0.0.1",
     "port": 3306,
     "dialect": "mysql",
     "logging": false
   },
   "production": {
     "username": "root",
-    "password": "rootpassword",
+    "password": "password",
     "database": "extrovis",
-    "host": "mysql",
+    "host": "127.0.0.1",
     "port": 3306,
     "dialect": "mysql",
     "logging": false

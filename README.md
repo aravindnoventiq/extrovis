@@ -40,8 +40,17 @@ Open http://localhost:4000 — site + API + uploads.
 
 ## Config
 
-- DB: `server/config/config.json` (`development` / `uat` / `production`). Env overrides: `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, or full `DATABASE_URL`.
+- DB: `server/config/config.json` (`development` / `production` → database `extrovis`). Env overrides: `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`.
 - App: `server/.env` — `APP_PORT`, `APP_HOST`, `JWT_SECRET`, `ADMIN_*`, optional `CLIENT_ORIGIN` (Vite only).
+
+### Production DB
+
+```bash
+cd server
+npm run db:push:production
+npm run seed:production
+npm run start:production
+```
 
 ## Admin
 
