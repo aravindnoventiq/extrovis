@@ -11,6 +11,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadDir = path.resolve(__dirname, '../../uploads/cvs');
 fs.mkdirSync(uploadDir, { recursive: true });
 
+function param(value: string | string[] | undefined): string {
+  if (Array.isArray(value)) return value[0] ?? '';
+  return value ?? '';
+}
+
 const upload = multer({
   storage: multer.diskStorage({
     destination: (_req, _file, cb) => cb(null, uploadDir),
@@ -24,7 +29,8 @@ const upload = multer({
 
 // —— Public content ——
 router.get('/pages/:slug', async (req, res) => {
-  const page = await prisma.pageContent.findUnique({ where: { slug: req.params.slug } });
+  const slug = param(req.params.slug);
+  const page = await prisma.pageContent.findUnique({ where: { slug } });
   if (!page) {
     res.status(404).json({ error: 'Page not found' });
     return;
@@ -118,9 +124,10 @@ router.put('/admin/pages/:slug', requireAuth, async (req, res) => {
     res.status(400).json({ error: 'data required' });
     return;
   }
+  const slug = param(req.params.slug);
   const page = await prisma.pageContent.upsert({
-    where: { slug: req.params.slug },
-    create: { slug: req.params.slug, data },
+    where: { slug },
+    create: { slug, data },
     update: { data },
   });
   res.json({ slug: page.slug, data: page.data, updatedAt: page.updatedAt });

@@ -41,9 +41,18 @@ router.get('/me', async (req, res) => {
   }
   try {
     const secret = process.env.JWT_SECRET || 'dev-secret';
-    const payload = jwt.verify(header.slice(7), secret) as { sub: number };
+    const decoded = jwt.verify(header.slice(7), secret);
+    if (typeof decoded === 'string' || decoded == null) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const sub = typeof decoded.sub === 'number' ? decoded.sub : Number(decoded.sub);
+    if (!Number.isFinite(sub)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
     const user = await prisma.adminUser.findUnique({
-      where: { id: payload.sub },
+      where: { id: sub },
       select: { id: true, email: true, name: true },
     });
     if (!user) {
