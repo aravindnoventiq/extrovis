@@ -1,0 +1,14 @@
+# .dockerignore
+node_modules
+client/node_modules
+server/node_modules
+client/out
+server/dist
+.git
+Refex_Industries_Ltd
+**/.env
+**/.env.*
+**/uploads/cvs/*
+!**/uploads/cvs/.gitkeep
+*.log
+.DS_Store
