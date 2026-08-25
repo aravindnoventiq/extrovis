@@ -16,44 +16,38 @@ if [ ! -f config/config.json ] && [ -f config/config.example.json ]; then
   cp config/config.example.json config/config.json
 fi
 
-echo "[entrypoint] Waiting for MySQL TCP ${DB_HOST}:${DB_PORT}..."
-node <<'NODE'
+# Optional schema sync (can hang / crash the container — off by default)
+if [ "${RUN_MIGRATE:-0}" = "1" ]; then
+  echo "[entrypoint] Waiting for MySQL TCP ${DB_HOST}:${DB_PORT}..."
+  node <<'NODE'
 const net = require('net');
 const host = process.env.DB_HOST || 'mysql';
 const port = Number(process.env.DB_PORT || 3306);
 (async () => {
-  for (let i = 1; i <= 40; i++) {
+  for (let i = 1; i <= 30; i++) {
     try {
       await new Promise((resolve, reject) => {
-        const s = net.connect(port, host, () => {
-          s.end();
-          resolve();
-        });
+        const s = net.connect(port, host, () => { s.end(); resolve(); });
         s.on('error', reject);
-        s.setTimeout(3000, () => {
-          s.destroy();
-          reject(new Error('timeout'));
-        });
+        s.setTimeout(3000, () => { s.destroy(); reject(new Error('timeout')); });
       });
-      console.log(`[entrypoint] MySQL port open (attempt ${i})`);
+      console.log(`[entrypoint] MySQL port open`);
       process.exit(0);
     } catch {
-      console.log(`[entrypoint] MySQL not ready (attempt ${i}/40)`);
       await new Promise((r) => setTimeout(r, 2000));
     }
   }
-  console.warn('[entrypoint] MySQL TCP wait timed out — continuing');
   process.exit(0);
 })();
 NODE
-
-echo "[entrypoint] prisma db push (best-effort)..."
-npx tsx scripts/prisma-with-config.ts --production db push \
-  || echo "[entrypoint] prisma db push failed — starting server anyway"
+  echo "[entrypoint] prisma db push..."
+  timeout 60 npx tsx scripts/prisma-with-config.ts --production db push \
+    || echo "[entrypoint] migrate skipped/failed"
+fi
 
 if [ "${RUN_SEED:-0}" = "1" ]; then
-  echo "[entrypoint] Seeding database..."
-  npm run seed:production || true
+  echo "[entrypoint] Seeding..."
+  timeout 60 npm run seed:production || true
 fi
 
 echo "[entrypoint] Starting Extrovis server on :${APP_PORT}..."

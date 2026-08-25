@@ -34,7 +34,7 @@ if (args.length === 0) {
 const child = spawn('npx', ['prisma', ...args], {
   stdio: 'inherit',
   env: process.env,
-  shell: true,
+  shell: false,
   cwd: serverRoot,
 });
 
