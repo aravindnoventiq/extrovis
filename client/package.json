@@ -1,19 +1,14 @@
 {
-  "name": "react",
+  "name": "extrovis-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:api": "npm run dev --prefix server",
-    "dev:all": "npm run dev:api & npm run dev",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "type-check": "tsc --noEmit --project tsconfig.app.json",
-    "cms:install": "npm install --prefix server",
-    "cms:seed": "npm run seed --prefix server",
-    "cms:db": "npm run db:push --prefix server"
+    "type-check": "tsc --noEmit --project tsconfig.app.json"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

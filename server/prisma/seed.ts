@@ -1,4 +1,6 @@
 import 'dotenv/config';
+import { applyDatabaseConfig } from '../src/loadConfig.js';
+applyDatabaseConfig();
 import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
 

@@ -1,10 +1,12 @@
 # Dependencies
 node_modules/
+client/node_modules/
 server/node_modules/
 
 # Build / Vite
 dist/
 out/
+client/out/
 server/dist/
 *.local
 
@@ -12,6 +14,7 @@ server/dist/
 .env
 .env.*
 .env.example
+client/.env
 server/.env
 server/.env.*
 server/.env.example
@@ -28,6 +31,9 @@ pnpm-debug.log*
 server/uploads/cvs/*
 !server/uploads/cvs/.gitkeep
 
+# Local reference copy (not part of this repo)
+Refex_Industries_Ltd/
+
 # IDE / OS
 .idea/
 .vscode/*
@@ -40,6 +46,7 @@ Desktop.ini
 *.tsbuildinfo
 .auto-imports.d.ts
 auto-imports.d.ts
+client/auto-imports.d.ts
 
 # Prisma
 server/prisma/*.db
