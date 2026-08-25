@@ -56,3 +56,6 @@ server/prisma/*.db-journal
 coverage/
 .cache/
 .eslintcache
+
+# Server DB config (local credentials)
+server/config/config.json
