@@ -253,7 +253,7 @@ export default function LeadershipPage() {
   }, []);
 
   return (
-    <div>
+    <div className="leadership-page">
       <Navbar />
       <main>
         <SectionHeader title="Executive Board" />

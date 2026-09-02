@@ -111,6 +111,32 @@ section.page-header-navy .title {
   color: #14146e !important;
 }
 
+/* Leadership page — live inline override on /leadership/
+   h1.title,h2.title { font-size:80px; line-height:100px; color:#14146e }
+   (overrides global h1.title lavender #dfdff2) */
+.leadership-page #leadership-header h1.title,
+.leadership-page h1.title {
+  font-size: 80px !important;
+  line-height: 100px !important;
+  color: #14146e !important;
+}
+@media only screen and (max-width: 991px) {
+  .leadership-page #leadership-header h1.title,
+  .leadership-page h1.title {
+    font-size: 40px !important;
+    line-height: 50px !important;
+    color: #14146e !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .leadership-page #leadership-header h1.title,
+  .leadership-page h1.title {
+    font-size: 40px !important;
+    line-height: 50px !important;
+    color: #14146e !important;
+  }
+}
+
 /* Who We Are page — full live inline title overrides */
 .who-we-are-page h1.title,
 .who-we-are-page h2.title,

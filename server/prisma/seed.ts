@@ -299,6 +299,52 @@ const leadershipTeam = [
     image: '/images/leadership/amit-tiwari.png',
     alt: 'Amit Tiwari',
   },
+  {
+    name: 'Rajesh Sadanandan',
+    role: 'Head Project & Alliance Management',
+    shortDesc:
+      'Rajesh Sadanandan heads the Project & Alliance Management at Extrovis based out of Princeton New Jersey, USA.',
+    fullDesc: [
+      'Rajesh Sadanandan heads the Project & Alliance Management at Extrovis based out of Princeton, New Jersey, USA. With over 30 years of leadership experience in pharmaceuticals, Rajesh brings deep expertise in Sales & Marketing, Business development & strategic partnerships across API, CDMO and FDF segments in regulated markets globally.',
+    ],
+    image: '/images/leadership/Rajesh-Sadanandan.png',
+    alt: 'Rajesh Sadanandan',
+  },
+  {
+    name: 'Andrea Gazzaneo',
+    role: 'Operations Director of Latina Pharma',
+    shortDesc:
+      'Andrea Gazzaneo is the Operations Director of Latina Pharma and brings over 25 years of experience across R&D, production, and large scale pharmaceutical operations',
+    fullDesc: [
+      'His background spans APIs, including optically active APIs, sterile and lyophilized APIs, antibiotics, vaccines, and high potency drugs (HPD). Andrea has led end to end technology transfer, process scale up, manufacturing, and packaging across diverse product categories. His technical expertise covers a wide portfolio of pharmaceutical forms, including:',
+      'Throughout his career, Andrea has been recognized for his deep scientific and operational expertise, his ability to lead complex manufacturing environments, and his commitment to quality, compliance, and continuous improvement.',
+    ],
+    image: '/images/leadership/andrea-gazzaneo.png',
+    alt: 'Andrea Gazzaneo',
+  },
+  {
+    name: 'Sheila Bonner',
+    role: 'General Manager, Kavis Pharma LLC, Sugar Land, Texas',
+    shortDesc:
+      "Sheila Bonner serves as General Manager of Kavis Pharma's flagship manufacturing facility in Sugar Land, Texas. With 30 years of experience in the pharmaceutical sector",
+    fullDesc: [
+      'she oversees all operational aspects of the facility, including regulatory compliance, manufacturing, and financial performance. Sheila has extensive experience with FDA, OSHA, and EPA compliance, lean manufacturing, change management, and continuous improvement methodologies. Sheila is committed to driving operational excellence by cultivating a culture of accountability, collaboration, and process optimization. Through her leadership, Sheila cultivates high-performing teams that consistently deliver innovative, complex products to customers that improve patient outcomes while ensuring client satisfaction.',
+    ],
+    image: '/images/leadership/Sheila-Bonner.png',
+    alt: 'Sheila Bonner',
+  },
+  {
+    name: 'Krisztián Varga',
+    role: 'CEO, Pharma Pack, Hungary',
+    shortDesc:
+      'Krisztián brings over two decades of leadership experience across the automotive, electronics, chemical',
+    fullDesc: [
+      'and custom manufacturing industries. With academic credentials in Mechanical Engineering, Economics, and an MBA, he has built a strong career driving organizational transformation and operational excellence.',
+      'He has led complex, large scale projects, shaped and restructured organizations, and championed lean based operational improvements. His experience includes managing production units, optimizing end to end processes, and leading teams ranging from small operational groups to large, multinational manufacturing divisions.',
+    ],
+    image: '/images/leadership/krisztian-varga.png',
+    alt: 'Krisztián Varga',
+  },
 ];
 
 async function main() {
